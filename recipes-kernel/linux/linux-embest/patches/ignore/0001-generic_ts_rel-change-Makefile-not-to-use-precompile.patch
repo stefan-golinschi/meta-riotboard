@@ -1,0 +1,54 @@
+From ae2e5d6b99a3047d6a9801576fcd6602a689c18b Mon Sep 17 00:00:00 2001
+From: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date: Tue, 30 May 2017 10:48:58 +0300
+Subject: [PATCH 1/1] generic_ts_rel: change Makefile not to use precompiled
+ libs
+
+Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+---
+ drivers/input/touchscreen/generic_ts_rel/Makefile | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/input/touchscreen/generic_ts_rel/Makefile b/drivers/input/touchscreen/generic_ts_rel/Makefile
+index 701895e..37c4e05 100755
+--- a/drivers/input/touchscreen/generic_ts_rel/Makefile
++++ b/drivers/input/touchscreen/generic_ts_rel/Makefile
+@@ -20,27 +20,27 @@ generic_ts-y	+= platform.o
+ 
+ ## chip config
+ # debug version
+-#generic_ts-y	+= chip.o
++generic_ts-y	+= chip.o
+ # release version
+-generic_ts-y	+= lib/chip.x
++# generic_ts-y	+= lib/chip.x
+ 
+ # ct360
+ # debug version
+-#generic_ts-y	+= ct360.o
++generic_ts-y	+= ct360.o
+ # release version
+-generic_ts-y	+= lib/ct360.x
++# generic_ts-y	+= lib/ct360.x
+ 
+ # ct362/ct363/365
+ # debug version
+-#generic_ts-y	+= ct365.o
++generic_ts-y	+= ct365.o
+ # release version
+-generic_ts-y	+= lib/ct365.x
++#generic_ts-y	+= lib/ct365.x
+ 
+ ## Enhance config
+ # debug version
+-#generic_ts-$(CONFIG_TOUCHSCREEN_GENERIC_TS_ENHANCE)	+= enhance.o
++generic_ts-$(CONFIG_TOUCHSCREEN_GENERIC_TS_ENHANCE)	+= enhance.o
+ # release version
+-generic_ts-$(CONFIG_TOUCHSCREEN_GENERIC_TS_ENHANCE)	+= lib/enhance.x
++#generic_ts-$(CONFIG_TOUCHSCREEN_GENERIC_TS_ENHANCE)	+= lib/enhance.x
+ 
+ 
+ ## interface config
+-- 
+2.9.4
+

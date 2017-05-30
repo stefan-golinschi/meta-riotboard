@@ -1,0 +1,18 @@
+From 0a29b6ca45617e952d7c4e5a91dc535f26f87bf5 Mon Sep 17 00:00:00 2001
+From: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date: Sun, 28 May 2017 19:26:08 +0300
+Subject: [PATCH 1/1] rename: renamed riotboard dts file
+
+Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+---
+ arch/arm/boot/dts/{imx6solo_RIoTboard.dts => imx6dl-riotboard.dts} | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename arch/arm/boot/dts/{imx6solo_RIoTboard.dts => imx6dl-riotboard.dts} (100%)
+
+diff --git a/arch/arm/boot/dts/imx6solo_RIoTboard.dts b/arch/arm/boot/dts/imx6dl-riotboard.dts
+similarity index 100%
+rename from arch/arm/boot/dts/imx6solo_RIoTboard.dts
+rename to arch/arm/boot/dts/imx6dl-riotboard.dts
+-- 
+2.9.4
+

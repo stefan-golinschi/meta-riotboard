@@ -1,0 +1,89 @@
+setenv serverip 172.20.0.1
+setenv ipaddr 172.20.0.10
+setenv netmask 255.255.0.0
+setenv ethaddr 9C:16:07:31:D1:23
+setenv bootargs console=ttymxc1,115200 root=/dev/nfs nfsroot=172.20.0.1:/nfsroot,nfsvers=3 rw rootwait earlyprintk ip=172.20.0.10:172.20.0.1::255.255.0.0:device
+tftp 0x10800000 fitImage
+bootm 0x10800000:kernel@1 - 0x10800000:fdt@1
+
+setenv fdt_addr 0x11000104
+setenv fdt_high 0xFFFFFFFF
+
+setenv ethaddr 9C:16:07:31:D1:23
+setenv bootargs console=ttymxc1,115200 root=/dev/nfs nfsroot=172.20.0.1:/nfsroot,nfsvers=3 rw rootwait earlyprintk ip=172.20.0.10:172.20.0.1::255.255.0.0:device
+tftp 0x10800000 zImage-imx6dl-riotboard.bin
+tftp 0x12000000 zImage-imx6dl-riotboard.dtb
+bootz 0x10800000 - 0x12000000
+
+
+# mbr & copiere pe eMMC
+mmc list
+mmc dev 2
+tftp 0x10800000 mbr.bin
+setexpr cnt 0x${filesize}/0x200
+mmc write 0x10800000 0x00 ${cnt}
+
+
+# restaurare bootloader
+mmc list
+mmc dev 2
+tftp 0x10800000 u-boot.imx
+setexpr cnt 0x${filesize} / 0x200
+mmc write 0x10800000 0x2 ${cnt}
+
+# copiere rootfs *.ext4 in partitia aferenta din mbr.bin
+mmc list
+mmc dev 2
+tftp 0x10800000 core-image-minimal-imx6dl-riotboard.ext4
+setexpr cnt 0x${filesize} / 0x200
+mmc write 0x10800000 0x3000 ${cnt}
+
+
+setenv loadaddr1 0x10800000
+setenv loadaddr2 0x12000000
+load mmc 2:2 ${loadaddr1} /boot/zImage
+load mmc 2:2 ${loadaddr2} /boot/imx6dl-riotboard.dtb
+setenv bootargs console=ttymxc1,115200 root=/dev/mmcblk2p2 earlyprintk
+man
+
+#environment
+setenv bootcmd bootz ${loadaddr1} - ${loadaddr2}
+
+tftp 0x10800000 zImage-imx6dl-riotboard.bin
+tftp 0x12000000 zImage-imx6dl-riotboard.dtb
+bootz 0x10800000 - 0x12000000
+
+# bootscript DSM**
+setenv loadaddr 0x10800000
+setenv mmcdev 1:1
+setenv blocksize 0x200
+
+
+echo "===========Writing MBR to eMMC================"
+load mmc ${mmcdev} ${loadaddr} /mbr.img
+setexpr cnt 0x${filesize} / ${blocksize}
+mmc dev 2
+mmc write ${loadaddr} 0x0 ${cnt}
+setenv bootcmd 'load mmc 2:1 ${loadaddr} /boot/fitImage; bootm ${loadaddr}'
+saveenv
+echo "====================DONE======================"
+
+
+echo "=========Writing u-boot to eMMC==============="
+load mmc ${mmcdev} ${loadaddr} /u-boot.imx
+setexpr cnt 0x${filesize} / ${blocksize}
+mmc dev 2
+mmc write ${loadaddr} 0x2 ${cnt}
+echo "====================DONE======================"
+
+
+echo "=========Writing rootfs to eMMC============="
+load mmc ${mmcdev} ${loadaddr} /core-image-minimal-riotboard.ext4
+setexpr cnt 0x${filesize} / ${blocksize}
+mmc dev 2
+mmc write ${loadaddr} 0x3fc0 ${cnt}
+echo "====================DONE======================"
+
+echo "Note: Eject card then reset board."
+
+

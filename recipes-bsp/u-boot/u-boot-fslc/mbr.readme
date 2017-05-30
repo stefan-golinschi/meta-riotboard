@@ -1,0 +1,23 @@
+# mbr.bin provine din eMMC.raw
+
+------------------------
+#     header MBR       #
+------------------------
+#                      #
+     ../*zeros*/..
+#                      #
+#-----------------------
+
+Disk eMMC.raw: 4 GiB, 4294967296 bytes, 8388608 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x60dc403c
+
+Device     Boot Start     End Sectors Size Id Type
+eMMC.raw1        2048   12287   10240   5M 83 Linux
+eMMC.raw2       12288 4206591 4194304   2G 83 Linux
+
+
+

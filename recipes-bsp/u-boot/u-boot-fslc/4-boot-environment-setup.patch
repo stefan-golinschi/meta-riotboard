@@ -1,0 +1,56 @@
+commit 3f97a245710db2cdfee68a51dde2ae9f60203622
+Author: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date:   Sun Jan 15 21:32:51 2017 +0200
+
+    embestmx6boards.h: boot environment setup
+    
+    Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+
+diff --git a/include/configs/embestmx6boards.h b/include/configs/embestmx6boards.h
+index dbc1334..33ae706 100644
+--- a/include/configs/embestmx6boards.h
++++ b/include/configs/embestmx6boards.h
+@@ -95,14 +95,14 @@
+ 	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
+ 
+ /* Environment organization */
+-#define CONFIG_ENV_SIZE			(8 * 1024)
++#define CONFIG_ENV_SIZE			(5 * 1024)
+ 
+ #if defined(CONFIG_ENV_IS_IN_MMC)
+ /* RiOTboard */
+ #define CONFIG_FDTFILE	"imx6dl-riotboard.dtb"
+ #define CONFIG_SYS_FSL_USDHC_NUM	3
+-#define CONFIG_SYS_MMC_ENV_DEV		0	/* SDHC2 */
+-#define CONFIG_ENV_OFFSET		(6 * 64 * 1024)
++#define CONFIG_SYS_MMC_ENV_DEV		2	/* eMMC */
++#define CONFIG_ENV_OFFSET		(512 * 2048) /* sector size * start_offset */
+ #define CONFIG_SUPPORT_EMMC_BOOT /* eMMC specific */
+ #elif defined(CONFIG_ENV_IS_IN_SPI_FLASH)
+ /* MarSBoard */
+@@ -134,12 +134,7 @@
+ /* 256M RAM (minimum), 32M uncompressed kernel, 16M compressed kernel, 1M fdt,
+  * 1M script, 1M pxe and the ramdisk at the end */
+ #define MEM_LAYOUT_ENV_SETTINGS \
+-	"bootm_size=0x10000000\0" \
+-	"kernel_addr_r=0x12000000\0" \
+-	"fdt_addr_r=0x13000000\0" \
+-	"scriptaddr=0x13100000\0" \
+-	"pxefile_addr_r=0x13200000\0" \
+-	"ramdisk_addr_r=0x13300000\0"
++	"bootm_size=0x10000000\0"
+ 
+ #define BOOT_TARGET_DEVICES(func) \
+ 	func(MMC, mmc, 0) \
+@@ -168,10 +163,7 @@
+ 
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+ 	CONSOLE_ENV_SETTINGS \
+-	MEM_LAYOUT_ENV_SETTINGS \
+-	"fdtfile=" CONFIG_FDTFILE "\0" \
+-	"finduuid=part uuid mmc 0:1 uuid\0" \
+-	BOOTENV
++	MEM_LAYOUT_ENV_SETTINGS
+ 
+ /* Network */
+ #define CONFIG_IPADDR 172.20.0.10

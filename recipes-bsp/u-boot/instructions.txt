@@ -1,0 +1,28 @@
+dd if=/dev/zero of=disk.img bs=1G count=3
+fdisk> create one linux partition, 3g and write
+dd if=disk.img of=mbr-3gb-partition.img bs=512 count=1
+cp mbr-3gb-partition.img /tftpboot
+
+setenv loadaddr 0x10800000
+setenv blocksize 0x200
+
+# Writing mbr to eMMC
+mmc list
+mmc dev 2
+tftp 0x10800000 mbr-3gb-partition.img
+setexpr cnt 0x${filesize} / ${blocksize}
+mmc dev 2
+mmc write ${loadaddr} 0x0 ${cnt}
+[!]setenv bootcmd 'load mmc 2:1 ${loadaddr} /boot/fitImage; bootm ${loadaddr}'
+
+
+# Writing rootfs to eMMC
+# It's going to take a while...
+# 18:08 -> 
+tftp 0x10800000 core-image-minimal-imx6dl-riotboard.ext4
+setexpr cnt 0x${filesize} / ${blocksize}
+mmc dev 2
+mmc write 0x10800000 0x3fc0 ${cnt}
+
+
+

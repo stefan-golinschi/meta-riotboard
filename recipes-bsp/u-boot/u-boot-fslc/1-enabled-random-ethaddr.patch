@@ -1,0 +1,20 @@
+commit f79bd771be6f3ad735dd799ee05f797329aa7a51
+Author: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date:   Sun Jan 15 15:27:33 2017 +0200
+
+    riotboard_defconfig: enabled random ethaddr
+    
+    Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+
+diff --git a/configs/riotboard_defconfig b/configs/riotboard_defconfig
+index a29c238..2e744fb 100644
+--- a/configs/riotboard_defconfig
++++ b/configs/riotboard_defconfig
+@@ -8,6 +8,7 @@ CONFIG_SYS_CONSOLE_IS_IN_ENV=y
+ CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
+ CONFIG_HUSH_PARSER=y
+ CONFIG_CMD_BOOTZ=y
++CONFIG_NET_RANDOM_ETHADDR=y
+ # CONFIG_CMD_IMLS is not set
+ # CONFIG_CMD_FLASH is not set
+ CONFIG_CMD_MMC=y

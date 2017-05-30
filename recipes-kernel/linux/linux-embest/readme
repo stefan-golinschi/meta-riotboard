@@ -1,0 +1,5 @@
+# U-boot boot args example
+
+console=ttymxc1,115200 root=/dev/nfs nfsroot=10.10.0.1:/nfsroot,v3,tcp rw rootwait earl
+yprintk ip=10.10.0.2:10.10.0.1:10.10.0.1:255.255.255.0:device video=mxcfb0:dev=lcd,7inc
+h_LCD,if=RGB565 video=mxcfb1:off fbmem=10M vmalloc=400M

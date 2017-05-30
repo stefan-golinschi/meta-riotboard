@@ -1,0 +1,159 @@
+From 8ba55f2d6f82c2f5f9eb04c33f4106f7fcb43948 Mon Sep 17 00:00:00 2001
+From: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date: Sun, 28 May 2017 15:43:21 +0300
+Subject: [PATCH 1/1] imx6dl-riotboard.dts: lcd support
+
+Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+---
+ arch/arm/boot/dts/imx6dl-riotboard.dts | 129 +++++++++++++++++++++++++++++++++
+ 1 file changed, 129 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6dl-riotboard.dts b/arch/arm/boot/dts/imx6dl-riotboard.dts
+index 5111f51..7d436f3 100644
+--- a/arch/arm/boot/dts/imx6dl-riotboard.dts
++++ b/arch/arm/boot/dts/imx6dl-riotboard.dts
+@@ -82,6 +82,60 @@
+ 			mux-int-port = <1>;
+ 			mux-ext-port = <3>;
+ 	};
++	
++	lcd@0 {
++		compatible = "fsl,lcd";
++		ipu_id = <0>;
++		disp_id = <0>;
++		default_ifmt = "RGB565";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_ipu1_1>;
++		status = "okay";
++	};
++
++	mxcfb1: fb@0 {
++		compatible = "fsl,mxc_sdc_fb";
++		disp_dev = "ldb";
++		interface_pix_fmt = "RGB666";
++		mode_str ="LDB-XGA";
++		default_bpp = <16>;
++		int_clk = <0>;
++		late_init = <0>;
++		status = "okay";
++	};
++
++	mxcfb2: fb@1 {
++		compatible = "fsl,mxc_sdc_fb";
++		disp_dev = "hdmi";
++		interface_pix_fmt = "RGB24";
++		mode_str ="1920x1080M@60";
++		default_bpp = <24>;
++		int_clk = <0>;
++		late_init = <0>;
++		status = "okay";
++	};
++
++	mxcfb3: fb@2 {
++		compatible = "fsl,mxc_sdc_fb";
++		disp_dev = "lcd";
++		interface_pix_fmt = "RGB565";
++		mode_str ="CLAA-WVGA";
++		default_bpp = <16>;
++		int_clk = <0>;
++		late_init = <0>;
++		status = "disabled";
++	};
++
++	mxcfb4: fb@3 {
++		compatible = "fsl,mxc_sdc_fb";
++		disp_dev = "ldb";
++		interface_pix_fmt = "RGB666";
++		mode_str ="LDB-XGA";
++		default_bpp = <16>;
++		int_clk = <0>;
++		late_init = <0>;
++		status = "disabled";
++	};
+ };
+ 
+ &audmux {
+@@ -534,5 +588,80 @@
+ 				MX6QDL_PAD_NANDF_ALE__GPIO6_IO08	0x17059	/* SD4 RST (eMMC) */
+ 			>;
+ 		};
++
++		pinctrl_ipu1_1: ipu1grp-1 {
++			fsl,pins = <
++				MX6QDL_PAD_DI0_DISP_CLK__IPU1_DI0_DISP_CLK 0x10
++				MX6QDL_PAD_DI0_PIN15__IPU1_DI0_PIN15       0x10
++				MX6QDL_PAD_DI0_PIN2__IPU1_DI0_PIN02        0x10
++				MX6QDL_PAD_DI0_PIN3__IPU1_DI0_PIN03        0x10
++				MX6QDL_PAD_DI0_PIN4__IPU1_DI0_PIN04        0x80000000
++				MX6QDL_PAD_DISP0_DAT0__IPU1_DISP0_DATA00   0x10
++				MX6QDL_PAD_DISP0_DAT1__IPU1_DISP0_DATA01   0x10
++				MX6QDL_PAD_DISP0_DAT2__IPU1_DISP0_DATA02   0x10
++				MX6QDL_PAD_DISP0_DAT3__IPU1_DISP0_DATA03   0x10
++				MX6QDL_PAD_DISP0_DAT4__IPU1_DISP0_DATA04   0x10
++				MX6QDL_PAD_DISP0_DAT5__IPU1_DISP0_DATA05   0x10
++				MX6QDL_PAD_DISP0_DAT6__IPU1_DISP0_DATA06   0x10
++				MX6QDL_PAD_DISP0_DAT7__IPU1_DISP0_DATA07   0x10
++				MX6QDL_PAD_DISP0_DAT8__IPU1_DISP0_DATA08   0x10
++				MX6QDL_PAD_DISP0_DAT9__IPU1_DISP0_DATA09   0x10
++				MX6QDL_PAD_DISP0_DAT10__IPU1_DISP0_DATA10  0x10
++				MX6QDL_PAD_DISP0_DAT11__IPU1_DISP0_DATA11  0x10
++				MX6QDL_PAD_DISP0_DAT12__IPU1_DISP0_DATA12  0x10
++				MX6QDL_PAD_DISP0_DAT13__IPU1_DISP0_DATA13  0x10
++				MX6QDL_PAD_DISP0_DAT14__IPU1_DISP0_DATA14  0x10
++				MX6QDL_PAD_DISP0_DAT15__IPU1_DISP0_DATA15  0x10
++				MX6QDL_PAD_DISP0_DAT16__IPU1_DISP0_DATA16  0x10
++				MX6QDL_PAD_DISP0_DAT17__IPU1_DISP0_DATA17  0x10
++				MX6QDL_PAD_DISP0_DAT18__IPU1_DISP0_DATA18  0x10
++				MX6QDL_PAD_DISP0_DAT19__IPU1_DISP0_DATA19  0x10
++				MX6QDL_PAD_DISP0_DAT20__IPU1_DISP0_DATA20  0x10
++				MX6QDL_PAD_DISP0_DAT21__IPU1_DISP0_DATA21  0x10
++				MX6QDL_PAD_DISP0_DAT22__IPU1_DISP0_DATA22  0x10
++				MX6QDL_PAD_DISP0_DAT23__IPU1_DISP0_DATA23  0x10
++			>;
++		};
++
++		pinctrl_ipu1_2: ipu1grp-2 { /* parallel camera */
++			fsl,pins = <
++				MX6QDL_PAD_CSI0_DAT12__IPU1_CSI0_DATA12    0x80000000
++				MX6QDL_PAD_CSI0_DAT13__IPU1_CSI0_DATA13    0x80000000
++				MX6QDL_PAD_CSI0_DAT14__IPU1_CSI0_DATA14    0x80000000
++				MX6QDL_PAD_CSI0_DAT15__IPU1_CSI0_DATA15    0x80000000
++				MX6QDL_PAD_CSI0_DAT16__IPU1_CSI0_DATA16    0x80000000
++				MX6QDL_PAD_CSI0_DAT17__IPU1_CSI0_DATA17    0x80000000
++				MX6QDL_PAD_CSI0_DAT18__IPU1_CSI0_DATA18    0x80000000
++				MX6QDL_PAD_CSI0_DAT19__IPU1_CSI0_DATA19    0x80000000
++				MX6QDL_PAD_CSI0_DATA_EN__IPU1_CSI0_DATA_EN 0x80000000
++				MX6QDL_PAD_CSI0_PIXCLK__IPU1_CSI0_PIXCLK   0x80000000
++				MX6QDL_PAD_CSI0_MCLK__IPU1_CSI0_HSYNC      0x80000000
++				MX6QDL_PAD_CSI0_VSYNC__IPU1_CSI0_VSYNC     0x80000000
++			>;
++		};
++
++		pinctrl_ipu1_3: ipu1grp-3 { /* parallel port 16-bit */
++			fsl,pins = <
++				MX6QDL_PAD_CSI0_DAT4__IPU1_CSI0_DATA04   0x80000000
++				MX6QDL_PAD_CSI0_DAT5__IPU1_CSI0_DATA05   0x80000000
++				MX6QDL_PAD_CSI0_DAT6__IPU1_CSI0_DATA06   0x80000000
++				MX6QDL_PAD_CSI0_DAT7__IPU1_CSI0_DATA07   0x80000000
++				MX6QDL_PAD_CSI0_DAT8__IPU1_CSI0_DATA08   0x80000000
++				MX6QDL_PAD_CSI0_DAT9__IPU1_CSI0_DATA09   0x80000000
++				MX6QDL_PAD_CSI0_DAT10__IPU1_CSI0_DATA10  0x80000000
++				MX6QDL_PAD_CSI0_DAT11__IPU1_CSI0_DATA11  0x80000000
++				MX6QDL_PAD_CSI0_DAT12__IPU1_CSI0_DATA12  0x80000000
++				MX6QDL_PAD_CSI0_DAT13__IPU1_CSI0_DATA13  0x80000000
++				MX6QDL_PAD_CSI0_DAT14__IPU1_CSI0_DATA14  0x80000000
++				MX6QDL_PAD_CSI0_DAT15__IPU1_CSI0_DATA15  0x80000000
++				MX6QDL_PAD_CSI0_DAT16__IPU1_CSI0_DATA16  0x80000000
++				MX6QDL_PAD_CSI0_DAT17__IPU1_CSI0_DATA17  0x80000000
++				MX6QDL_PAD_CSI0_DAT18__IPU1_CSI0_DATA18  0x80000000
++				MX6QDL_PAD_CSI0_DAT19__IPU1_CSI0_DATA19  0x80000000
++				MX6QDL_PAD_CSI0_PIXCLK__IPU1_CSI0_PIXCLK 0x80000000
++				MX6QDL_PAD_CSI0_MCLK__IPU1_CSI0_HSYNC    0x80000000
++				MX6QDL_PAD_CSI0_VSYNC__IPU1_CSI0_VSYNC   0x80000000
++			>;
++		};
+ 	};
+ };
+-- 
+2.9.4
+

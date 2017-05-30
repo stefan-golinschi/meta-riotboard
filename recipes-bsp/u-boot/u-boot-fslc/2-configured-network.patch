@@ -1,0 +1,23 @@
+commit 4dfd51c5f4bd0b52967dd5524edb84010c3ad225
+Author: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date:   Sun Jan 15 15:28:43 2017 +0200
+
+    embestmx6boards.h: configured network
+    
+    Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+
+diff --git a/include/configs/embestmx6boards.h b/include/configs/embestmx6boards.h
+index aed9666..dbc1334 100644
+--- a/include/configs/embestmx6boards.h
++++ b/include/configs/embestmx6boards.h
+@@ -173,4 +173,10 @@
+ 	"finduuid=part uuid mmc 0:1 uuid\0" \
+ 	BOOTENV
+ 
++/* Network */
++#define CONFIG_IPADDR 10.10.0.2
++#define CONFIG_SERVERIP 10.10.0.1
++#define CONFIG_GATEWAYIP 10.10.0.1
++#define CONFIG_NETMASK 255.255.255.0
++
+ #endif                         /* __RIOTBOARD_CONFIG_H */

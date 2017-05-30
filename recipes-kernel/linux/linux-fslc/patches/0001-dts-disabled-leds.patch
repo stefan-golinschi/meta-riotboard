@@ -1,0 +1,28 @@
+From ad5f790bb7ebe509f7dc0b1363a84d38dfa478ee Mon Sep 17 00:00:00 2001
+From: Stefan Golinschi <stefan.golinschi@gmail.com>
+Date: Sat, 11 Mar 2017 17:43:30 +0200
+Subject: [PATCH 1/1] dts: disabled leds
+
+Signed-off-by: Stefan Golinschi <stefan.golinschi@gmail.com>
+---
+ arch/arm/boot/dts/imx6dl-riotboard.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6dl-riotboard.dts b/arch/arm/boot/dts/imx6dl-riotboard.dts
+index 75d7343..f949a93 100644
+--- a/arch/arm/boot/dts/imx6dl-riotboard.dts
++++ b/arch/arm/boot/dts/imx6dl-riotboard.dts
+@@ -59,8 +59,8 @@
+ 		led0: user1 {
+ 			label = "user1";
+ 			gpios = <&gpio5 2 GPIO_ACTIVE_LOW>;
+-			default-state = "on";
+-			linux,default-trigger = "heartbeat";
++			default-state = "off";
++			/* linux,default-trigger = "heartbeat"; */
+ 		};
+ 
+ 		led1: user2 {
+-- 
+2.9.3
+
