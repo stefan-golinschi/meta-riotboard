@@ -26,6 +26,8 @@ file://defconfig \
 SRC_URI += "\
 file://fragments/enable-nfs-debug.cfg \
 file://fragments/enable-printk-timestamps.cfg \
+file://fragments/disable-unused-ts-drivers.cfg \
+file://fragments/enable-fhandle.cfg \
 "
 
 # patches:
