@@ -11,3 +11,6 @@ IMAGE_INSTALL_append = " pointercal"
 
 # Optional
 IMAGE_INSTALL_append = " psplash"
+
+# Environment vars:
+IMAGE_INSTALL_append = " env-settings"
