@@ -5,3 +5,4 @@ export QT_QPA_FONTDIR=/usr/share/fonts/cantarell
 export QT_QPA_FB_TSLIB=1
 export TSLIB_CONFFILE=/etc/ts.conf
 export TSLIB_TSDEVICE=/dev/input/touchscreen0
+export QT_MESSAGE_PATTERN="[%{type}] %{appname} (%{file}:%{line}) - %{message}"
